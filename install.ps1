@@ -25,21 +25,25 @@ Move-Item -Path "$env:TEMP\pvl_extracted\ChatBot-main\*" -Destination $InstallDi
 Remove-Item -Path $ZipPath -Force
 Remove-Item -Path "$env:TEMP\pvl_extracted" -Recurse -Force
 
-# 2. Check Python Installation
+# 2. Check and Auto-Install Python if Missing
 Write-Host "`n[2/5] Checking Python installation..." -ForegroundColor Yellow
-try {
-    $pythonCmd = (Get-Command python -ErrorAction Stop).Source
-} catch {
-    Write-Host "Error: Python is not installed or not added to PATH." -ForegroundColor Red
-    Pause
-    Exit
+if (-not (Get-Command "python" -ErrorAction SilentlyContinue)) {
+    Write-Host "Python not found. Downloading and installing Python 3.11 silently..." -ForegroundColor Yellow
+    $PythonInstaller = "$env:TEMP\python-installer.exe"
+    Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.11.8/python-3.11.8-amd64.exe" -OutFile $PythonInstaller
+    Start-Process -FilePath $PythonInstaller -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1" -Wait
+    Remove-Item -Path $PythonInstaller -Force
+    
+    # Refresh PATH in the active PowerShell session
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+} else {
+    Write-Host "Python installation detected." -ForegroundColor Green
 }
 
 # 3. Create Virtual Environment and Install Dependencies
 Write-Host "`n[3/5] Setting up Virtual Environment..." -ForegroundColor Yellow
 Set-Location $InstallDir
 python -m venv venv
-$VenvPython = "$InstallDir\venv\Scripts\python.exe"
 $VenvPip = "$InstallDir\venv\Scripts\pip.exe"
 
 Write-Host "Installing Python requirements..." -ForegroundColor Yellow
