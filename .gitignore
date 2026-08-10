@@ -16,6 +16,10 @@ my_sos_lora_weights/
 *.mov
 *.mkv
 
+# Ignore Excel files by default, BUT keep the template file
+*.xlsx
+!FOR-054-Multi-J-SOS Analysis.xlsx
+
 # Temporary & Junk files
 *.pdf
 0.8.0
