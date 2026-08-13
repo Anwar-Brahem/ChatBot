@@ -52,6 +52,17 @@ class DescriptionApp(tk.Tk):
         self._build_ui()
 
     def _build_ui(self):
+        # FOOTER CREDITS (Ancré en bas de la fenêtre, toujours visible et discret)
+        lbl_footer = tk.Label(
+            self,
+            text="Developed by Anwar Brahem",
+            font=(FONT_FAMILY, 8),
+            fg=TEXT_MUTED,
+            bg=DARK_BG,
+            anchor="center"
+        )
+        lbl_footer.pack(side="bottom", fill="x", pady=(2, 6))
+
         scroll = ScrollableArea(self, bg=DARK_BG)
         scroll.pack(fill="both", expand=True)
         container = tk.Frame(scroll.body, bg=DARK_BG, padx=SPACE_LG, pady=SPACE_LG)
@@ -63,13 +74,13 @@ class DescriptionApp(tk.Tk):
 
         title_row = tk.Frame(header, bg=DARK_BG)
         title_row.pack(fill="x")
-        tk.Label(title_row, text="🏭  PVL Operator Analyzer", font=FONT_H1,
+        tk.Label(title_row, text="SOS Generator", font=FONT_H1,
                  fg=TEXT_PRIMARY, bg=DARK_BG).pack(side="left")
 
         self.status_pill = StatusPill(title_row, text="En attente d'une vidéo", state="idle", width=250)
         self.status_pill.pack(side="right")
 
-        tk.Label(header, text="Analyse vidéo SOS - Génération de rapports industriels",
+        tk.Label(header, text="Operation Analyzer - Génération de rapports industriels",
                  font=FONT_CAPTION, fg=TEXT_SECONDARY, bg=DARK_BG).pack(anchor="w", pady=(4, 0))
 
         # --- CARTE 1 : SELECTION VIDEO ---
