@@ -19,6 +19,22 @@ DEFAULT_DEFECT_OPTIONS = [
 ]
 
 # ═══════════════════════════════════════════════════════════════════
+# DÉFAUTS DE CONTRÔLE TAMPOGRAPHIE
+# ═══════════════════════════════════════════════════════════════════
+DEFAULT_TAMPO_DEFECT_OPTIONS = [
+    "Pas de décalage",
+    "Bavure",
+    "Marque"
+]
+
+# Clés de workflow ayant un contrôle tampographie
+TAMPO_WORKFLOW_KEYS = [
+    "tampographie",
+    "marquage_chaud",
+    "tampographie_sans_recuperation",
+]
+
+# ═══════════════════════════════════════════════════════════════════
 # WORKFLOW DEFINITIONS — Standard Industrie PVL
 # ═══════════════════════════════════════════════════════════════════
 
@@ -207,7 +223,7 @@ WORKFLOW_TYPES: Dict[str, Dict[str, Any]] = {
     "custom": {
         "label": "✏️ Personnalisé",
         "desc": "Définissez vous-même la liste exacte des étapes dans le champ texte.",
-        "has_control_choice": False,
+        "has_control_choice": True,
         "steps": [],
         "max_steps": None,
         "prompt_addendum": "",
