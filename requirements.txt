@@ -1,5 +1,10 @@
-Pillow
-requests
 opencv-python
+Pillow
+torch
+transformers
+peft
+bitsandbytes
+accelerate
 openpyxl
 xlsxwriter
+requests
