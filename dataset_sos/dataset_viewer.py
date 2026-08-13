@@ -46,11 +46,37 @@ class DatasetViewer(tk.Tk):
         header = tk.Frame(self, bg=DARK_BG, padx=20, pady=15)
         header.pack(fill="x")
 
-        self.lbl_counter = tk.Label(
-            header, text="Échantillon : 0 / 0", font=("Segoe UI", 14, "bold"),
+        # --- Interactive Sample Counter / Page Jump ---
+        counter_frame = tk.Frame(header, bg=DARK_BG)
+        counter_frame.pack(side="left")
+
+        lbl_prefix = tk.Label(
+            counter_frame, text="Échantillon : ", font=("Segoe UI", 14, "bold"),
             fg=TEXT_PRIMARY, bg=DARK_BG
         )
-        self.lbl_counter.pack(side="left")
+        lbl_prefix.pack(side="left")
+
+        self.ent_page = tk.Entry(
+            counter_frame, font=("Segoe UI", 12, "bold"), width=6,
+            bg="#252525", fg=TEXT_PRIMARY, insertbackground="white",
+            justify="center", relief="flat"
+        )
+        self.ent_page.pack(side="left", padx=5)
+        self.ent_page.bind("<Return>", lambda event: self.jump_to_page())
+
+        self.lbl_total = tk.Label(
+            counter_frame, text=" / 0", font=("Segoe UI", 14, "bold"),
+            fg=TEXT_PRIMARY, bg=DARK_BG
+        )
+        self.lbl_total.pack(side="left")
+
+        self.btn_go = tk.Button(
+            counter_frame, text="Go", font=("Segoe UI", 9, "bold"),
+            bg=ACCENT_BLUE, fg=TEXT_PRIMARY, activebackground="#2563EB", activeforeground=TEXT_PRIMARY,
+            relief="flat", padx=8, pady=2, command=self.jump_to_page
+        )
+        self.btn_go.pack(side="left", padx=8)
+        # ----------------------------------------------
 
         self.lbl_workflow = tk.Label(
             header, text="Workflow: N/A", font=("Segoe UI", 11, "bold"),
@@ -194,6 +220,26 @@ class DatasetViewer(tk.Tk):
             elif isinstance(widget, tk.Text):
                 widget.config(state=state, bg="#252525" if state == "normal" else "#1E1E1E")
 
+    def jump_to_page(self):
+        """Jumps directly to the entered sample number."""
+        if not self.records:
+            return
+        
+        val = self.ent_page.get().strip()
+        try:
+            target_page = int(val)
+            if 1 <= target_page <= len(self.records):
+                self.current_index = target_page - 1
+                self.display_current()
+            else:
+                messagebox.showwarning("Attention", f"Veuillez entrer un numéro entre 1 et {len(self.records)}.")
+                self.ent_page.delete(0, "end")
+                self.ent_page.insert(0, str(self.current_index + 1))
+        except ValueError:
+            messagebox.showerror("Erreur", "Veuillez entrer un numéro valide.")
+            self.ent_page.delete(0, "end")
+            self.ent_page.insert(0, str(self.current_index + 1))
+
     def display_current(self):
         if not self.records or self.current_index >= len(self.records):
             self.show_empty_state()
@@ -206,7 +252,11 @@ class DatasetViewer(tk.Tk):
         record = self.records[self.current_index]
         gt = record.get("ground_truth", {})
 
-        self.lbl_counter.config(text=f"Échantillon : {self.current_index + 1} / {len(self.records)}")
+        # Update counter input & total count
+        self.ent_page.delete(0, "end")
+        self.ent_page.insert(0, str(self.current_index + 1))
+        self.lbl_total.config(text=f" / {len(self.records)}")
+
         self.lbl_workflow.config(text=f"Workflow: {record.get('workflow_type', 'auto')}")
 
         # Image Handling
@@ -282,7 +332,9 @@ class DatasetViewer(tk.Tk):
         self.display_current()
 
     def show_empty_state(self):
-        self.lbl_counter.config(text="Échantillon : 0 / 0")
+        self.ent_page.delete(0, "end")
+        self.ent_page.insert(0, "0")
+        self.lbl_total.config(text=" / 0")
         self.lbl_workflow.config(text="")
         self.lbl_image.config(image="", text="Le dataset est vide.", fg=TEXT_SECONDARY)
         self.set_fields_state("disabled")
