@@ -37,6 +37,7 @@ class ModernDialog(tk.Toplevel):
         # Variables dynamiques pour les sous-options
         self.var_control_type = tk.StringVar(value="face_aspect")
         self.checkbox_vars = {}
+        self.tampo_checkbox_vars = {}
 
         self._build_ui()
         self.center_window(parent)
@@ -126,6 +127,27 @@ class ModernDialog(tk.Toplevel):
             self.checkbox_vars[defect] = var
             cb = tk.Checkbutton(
                 self.defects_frame, text=defect, variable=var, bg=DARK_CARD_ALT, fg=TEXT_PRIMARY,
+                selectcolor=DARK_BG, activebackground=DARK_CARD_ALT, activeforeground=TEXT_PRIMARY,
+                font=FONT_BODY, anchor="w"
+            )
+            cb.pack(fill="x", anchor="w", pady=2)
+
+        # --- Sub-options: Checkboxes Défauts Tampographie ---
+        self.tampo_defects_frame = tk.Frame(wf_box, bg=DARK_CARD_ALT, padx=SPACE_MD, pady=SPACE_MD,
+                                            highlightthickness=1, highlightbackground=DARK_BORDER)
+
+        tk.Label(self.tampo_defects_frame, text="Points clés de contrôle Tampographie (Raison / Défauts à vérifier) :",
+                 font=FONT_BODY_BOLD, fg=TEXT_PRIMARY, bg=DARK_CARD_ALT).pack(anchor="w", pady=(0, SPACE_SM))
+
+        tampo_defects_list = getattr(config, 'DEFAULT_TAMPO_DEFECT_OPTIONS', [
+            "Pas de décalage", "Bavure", "Marque"
+        ])
+
+        for tampo_defect in tampo_defects_list:
+            var = tk.BooleanVar(value=True)
+            self.tampo_checkbox_vars[tampo_defect] = var
+            cb = tk.Checkbutton(
+                self.tampo_defects_frame, text=tampo_defect, variable=var, bg=DARK_CARD_ALT, fg=TEXT_PRIMARY,
                 selectcolor=DARK_BG, activebackground=DARK_CARD_ALT, activeforeground=TEXT_PRIMARY,
                 font=FONT_BODY, anchor="w"
             )
@@ -259,6 +281,11 @@ class ModernDialog(tk.Toplevel):
         else:
             self.sub_control_frame.pack_forget()
 
+        tampo_keys = getattr(config, 'TAMPO_WORKFLOW_KEYS', [
+            "tampographie", "marquage_chaud", "tampographie_sans_recuperation"
+        ])
+        is_tampo = wf_key in tampo_keys
+
         if wf_key != "custom":
             self.defects_frame.pack(fill="x", pady=(SPACE_MD, 0))
             self.custom_label.pack_forget()
@@ -270,12 +297,24 @@ class ModernDialog(tk.Toplevel):
             self.step_builder.pack(fill="x", pady=(0, SPACE_SM))
             self.custom_text.pack(fill="x")
 
+        if is_tampo:
+            self.tampo_defects_frame.pack(fill="x", pady=(SPACE_MD, 0))
+        else:
+            self.tampo_defects_frame.pack_forget()
+
     def _on_confirm(self):
         wf_type = self._option_group.selected_key
         custom = self.custom_text.get("1.0", "end").strip() if wf_type == "custom" else None
         cond_mode = self._cond_option_group.selected_key
 
         selected_defects = [defect for defect, var in self.checkbox_vars.items() if var.get()]
+        tampo_keys = getattr(config, 'TAMPO_WORKFLOW_KEYS', [
+            "tampographie", "marquage_chaud", "tampographie_sans_recuperation"
+        ])
+        selected_tampo_defects = (
+            [d for d, var in self.tampo_checkbox_vars.items() if var.get()]
+            if wf_type in tampo_keys else None
+        )
         control_type = self.var_control_type.get() if getattr(config, 'WORKFLOW_TYPES', {}).get(wf_type, {}).get("has_control_choice") else None
 
         workflows = getattr(config, 'WORKFLOW_TYPES', {})
@@ -285,6 +324,7 @@ class ModernDialog(tk.Toplevel):
             "workflow_type": wf_type,
             "control_type": control_type,
             "selected_defects": selected_defects,
+            "selected_tampo_defects": selected_tampo_defects,
             "custom_steps": custom,
             "conditioning_mode": cond_mode,
             "expected_step_count": expected_steps,
