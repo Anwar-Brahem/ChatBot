@@ -21,11 +21,11 @@ from .text_processing import (
 )
 
 OLLAMA_API_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = getattr(config, "OLLAMA_MODEL", "gemma4:31b")
+MODEL_NAME = getattr(config, "OLLAMA_MODEL", "gemma4:31b-cloud")
 
 def get_active_model_name():
     """Récupère le modèle Ollama configuré dynamiquement."""
-    return getattr(config, "OLLAMA_MODEL", "gemma4:31b")
+    return getattr(config, "OLLAMA_MODEL", "gemma4:31b-cloud")
 
 def _log(msg):
     ts = datetime.datetime.now().strftime("%H:%M:%S")
@@ -102,7 +102,7 @@ def _post_with_retry(payload, max_retries=3, timeout=(10, 500)):
     return None
 
 
-def analyze_sequence_two_pass(images_base64, previous_action, workflow_context, forced_step_label=None):
+def analyze_sequence_two_pass(images_base64, previous_action, workflow_context, forced_step_label=None, control_type=None):
     optimized_images = [optimize_base64_image(img) for img in images_base64]
     active_model = get_active_model_name()
 
@@ -136,11 +136,27 @@ def analyze_sequence_two_pass(images_base64, previous_action, workflow_context, 
     
     duree_str = str(duree).strip().rstrip('s')
 
+    # --- Construction de l'instruction de contrôle selon le type de pièce ---
+    if control_type == "face_technique":
+        ctrl_instruction = (
+            "   - description_complete: \"Contrôler visuellement la pièce pour vérifier la face technique.\"\n"
+            "   - points_cles: \"visuellement / vérifier la face technique\"\n"
+            "   - raison_point_cle: \"Pièce Technique : vérification de la face fonctionnelle uniquement.\""
+        )
+    else:
+        # face_aspect (défaut) : on contrôle les deux faces
+        ctrl_instruction = (
+            "   - description_complete: \"Contrôler visuellement la pièce pour vérifier l'aspect et la face technique.\"\n"
+            "   - points_cles: \"visuellement / vérifier l'aspect et la face technique\"\n"
+            "   - raison_point_cle: \"Pièce Aspect : Éviter les défauts : Pas de traces, Point noir (si pièce blanche), Givrage, Manque, Cassé, Déformation.\""
+        )
+
     # --- PASSE 2 ---
     prompt_p2 = PASS2_FOR054_PROMPT.format(
         etape_macro=etape_macro,
         gestes_observes=gestes,
-        duree_cumulee=duree_str
+        duree_cumulee=duree_str,
+        control_type_instruction=ctrl_instruction
     )
     
     payload_p2 = {
@@ -176,7 +192,7 @@ def analyze_sequence_with_ollama(images_base64, previous_action, used_verbs=None
                                   workflow_type="auto", custom_steps=None,
                                   conditioning_mode="conditionner",
                                   forced_step_label=None, step_index=None, total_steps=None,
-                                  progress_callback=None, cancellation_event=None):
+                                  progress_callback=None, cancellation_event=None, **kwargs):
     
     if getattr(config, "USE_CUSTOM_LORA_MODEL", False):
         try:
@@ -207,7 +223,8 @@ def analyze_sequence_with_ollama(images_base64, previous_action, used_verbs=None
             images_base64=images_base64,
             previous_action=previous_action,
             workflow_context=workflow_ctx,
-            forced_step_label=forced_step_label
+            forced_step_label=forced_step_label,
+            control_type=kwargs.get("control_type")
         )
         
         _log(f"← Analyse deux passes terminée en {time.time() - t0:.1f}s")
