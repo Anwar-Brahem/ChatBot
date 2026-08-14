@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 config/paths.py - Chemins de sortie et disposition du template Excel
 (extrait de l'ancien config.py, aucune logique modifiee)
