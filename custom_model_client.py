@@ -70,7 +70,7 @@ def analyze_sequence_with_custom_model(images_base64, previous_action, **kwargs)
         f'  "points_cles_how": "...",\n'
         f'  "raison_why": "...",\n'
         f'  "description_complete": "...",\n'
-        f'  "cp_cs": "Oui" ou "Non"\n'
+        f'  "cp_cs": ""\n'
         f"}}<|im_end|>\n"
         f"<|im_start|>assistant\n"
     )
@@ -103,5 +103,5 @@ def analyze_sequence_with_custom_model(images_base64, previous_action, **kwargs)
             "points_cles_how": "Suivre la consigne",
             "raison_why": "Assurer l'exécution correcte",
             "description_complete": text_resp if text_resp else "Détails non générés",
-            "cp_cs": "Non"
+            "cp_cs": ""
         }
