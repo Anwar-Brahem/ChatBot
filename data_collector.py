@@ -61,7 +61,7 @@ def save_training_sample(base64_images, final_json, workflow_type="auto", step_l
                 "points_cles": final_json.get("points_cles", ""),
                 "raison_point_cle": final_json.get("raison_point_cle", ""),
                 "temps_cycle_estime": final_json.get("temps_cycle_estime", "3s"),
-                "cp_cs": final_json.get("cp_cs", "Non"),
+                "cp_cs": final_json.get("cp_cs", ""),
                 "etape_principale_resume": final_json.get("etape_principale_resume", "")
             }
         }
