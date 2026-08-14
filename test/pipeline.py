@@ -109,7 +109,7 @@ def generate_excel_report(chronological_logs: list, output_excel_path: str):
         worksheet.set_row(row, 75)
         
         worksheet.write(row, 0, idx, fmt_cell)
-        worksheet.write(row, 1, step.get("cp_cs", "Non"), fmt_cell)
+        worksheet.write(row, 1, step.get("cp_cs", ""), fmt_cell)
 
         desc = str(step.get("description_complete", ""))
         pts = str(step.get("points_cles", ""))
@@ -256,7 +256,7 @@ def ensure_clean_dict(data, fallback_step_label="Étape"):
         "points_cles": "Suivre le mode opératoire.",
         "raison_point_cle": "Assurer la qualité.",
         "temps_cycle_estime": "2s",
-        "cp_cs": "Non",
+        "cp_cs": "",
         "etape_principale_resume": fallback_step_label,
         "best_frame_index": 1
     }
