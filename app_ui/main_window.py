@@ -130,10 +130,10 @@ class DescriptionApp(tk.Tk):
         # Sélecteur de modèle Ollama
         tk.Label(t_row, text="Modèle Ollama :", font=FONT_BODY, fg=TEXT_PRIMARY, bg=DARK_CARD).pack(side="left", padx=(0, 6))
         
-        current_model = getattr(config, "OLLAMA_MODEL", "gemma4:31b")
+        current_model = getattr(config, "OLLAMA_MODEL", "gemma4:31b-cloud")
         self.combo_model = ttk.Combobox(
             t_row, 
-            values=["gemma4:31b", "gemma4:31b-cloud"], 
+            values=["gemma4:31b-cloud"], 
             state="readonly",
             width=18
         )
@@ -219,31 +219,32 @@ class DescriptionApp(tk.Tk):
             self.status_pill.set_status("Mode : Modèle Local (LoRA)", "success")
         else:
             self.btn_toggle_model.set_text("Mode : Ollama Standard")
-            self.status_pill.set_status(f"Mode : Ollama ({getattr(config, 'OLLAMA_MODEL', 'gemma4:31b')})", "idle")
+            self.status_pill.set_status(f"Mode : Ollama ({getattr(config, 'OLLAMA_MODEL', 'gemma4:31b-cloud')})", "idle")
 
         self._update_config_file_var("USE_CUSTOM_LORA_MODEL", str(config.USE_CUSTOM_LORA_MODEL))
 
     def _update_config_file_var(self, var_name: str, var_value: str):
-        """ Met à jour une variable dans config.py pour conserver l'état au redémarrage """
+        """ Met à jour une variable dans config/defaults.py ou config.py pour conserver l'état au redémarrage """
         try:
-            config_path = "config.py"
-            if not os.path.exists(config_path):
-                return
-            with open(config_path, "r", encoding="utf-8") as f:
-                lines = f.readlines()
+            target_files = [os.path.join("config", "defaults.py"), "config.py"]
+            for config_path in target_files:
+                if not os.path.exists(config_path):
+                    continue
+                with open(config_path, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
 
-            found = False
-            with open(config_path, "w", encoding="utf-8") as f:
-                for line in lines:
-                    if line.startswith(var_name):
-                        f.write(f"{var_name} = {var_value}\n")
-                        found = True
-                    else:
-                        f.write(line)
-                if not found:
-                    f.write(f"\n{var_name} = {var_value}\n")
+                found = False
+                with open(config_path, "w", encoding="utf-8") as f:
+                    for line in lines:
+                        if line.startswith(var_name):
+                            f.write(f"{var_name} = {var_value}\n")
+                            found = True
+                        else:
+                            f.write(line)
+                    if not found:
+                        f.write(f"\n{var_name} = {var_value}\n")
         except Exception as e:
-            print(f"[CONFIG ERROR] Impossible de modifier config.py : {e}")
+            print(f"[CONFIG ERROR] Impossible de modifier la configuration : {e}")
 
     def update_sample_count(self):
         dataset_file = os.path.join("dataset_sos", "dataset.jsonl")
@@ -349,7 +350,8 @@ class DescriptionApp(tk.Tk):
                 frame_interval=self.workflow_config.get("frame_interval"),
                 window_size=self.workflow_config.get("window_size"),
                 resize_factor=self.workflow_config.get("resize_factor"),
-                cancellation_event=self.cancellation_event
+                cancellation_event=self.cancellation_event,
+                control_type=self.workflow_config.get("control_type")
             )
             self.after(0, self._on_success, result)
         except Exception as e:
