@@ -52,6 +52,7 @@ from .defaults import (
     DEFAULT_OLLAMA_TIMEOUT,
     DEFAULT_SKIP_SIMILAR,
     DEFAULT_SIMILARITY_THRESHOLD,
+    OLLAMA_MODEL,
 )
 
 # ── Workflows (config/workflows.py) ────────────────────────────────
