@@ -68,7 +68,7 @@ DONNÉES EN ENTRÉE :
 Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre ces structures dans 'description_complete' :
 
 1. "Prendre une pièce" :
-   "Prendre avec [la main droite / la main gauche / les deux mains] la pièce depuis [carton / bac / tapis / posage]."
+   "Prendre avec [la main droite / la main gauche / les deux mains] la pièce depuis [carton / tapis / bac / posage]."
 
 2. "Prise d'un composant" :
    "Prendre avec [la main droite / la main gauche / les deux mains] le composant noir depuis [carton / bac / alvéole]."
@@ -95,19 +95,19 @@ Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre 
    "Translater avec [la main droite / les deux mains] le posage coulissant vers la zone de travail."
 
 10. "Contrôle traçabilité" :
-    "Contrôler avec les yeux la pièce pour vérifier la traçabilité."
+    "Contrôler visuellement la pièce pour vérifier la traçabilité."
 
 11. "Contrôle visuel" :
-    "Contrôler avec les yeux la pièce pour vérifier l'aspect et la face technique."
+    "Contrôler visuellement la pièce pour vérifier l'aspect et la face technique."
 
 12. "Contrôle Tampographie" :
-    "Contrôler avec les yeux le marquage tampographié pour vérifier la conformité."
+    "Contrôler visuellement le marquage tampographié pour vérifier la conformité."
 
 13. "Contrôle assemblage" :
-    "Contrôler avec les yeux l'assemblage du composant pour vérifier le bon encliquetage."
+    "Contrôler visuellement l'assemblage du composant pour vérifier le bon encliquetage."
 
 14. "Contrôle dimensionnel" :
-    "Contrôler avec [un pige de contrôle / un gabarit / les yeux] les cotes critiques de la pièce."
+    "Contrôler [avec un pige de contrôle / avec un gabarit / visuellement] les cotes critiques de la pièce."
 
 15. "Retouche de pièce" :
     "Retoucher avec [l'outil de finition / le bistouri / le cutter] la pièce pour ébavurer les contours."
@@ -126,6 +126,9 @@ Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre 
 
 20. "Conditionnement" :
     "Conditionner avec [la main droite / les deux mains] la pièce selon la gamme de conditionnement."
+
+20. "Nettoyage par air" :
+    "Faire passer la pièce avec [la main droite / les deux mains] sur le soufle d'aire."
 
 ═══════════════════════════════════════════════════════════════════════
 3. RÈGLE D'OR DE GÉNÉRATION DU TITRE ('etape_principale_resume')
@@ -157,9 +160,7 @@ A. SI L'ÉTAPE EST UN CONTRÔLE DE TRAÇABILITÉ :
    - raison_point_cle: STRICTEMENT "Assurer la lisibilité du marquage"
 
 B. SI L'ÉTAPE EST UN CONTRÔLE D'ASPECT OU FACE TECHNIQUE :
-   - description_complete: "Contrôler visuellement la pièce pour vérifier l'aspect et la face technique."
-   - points_cles: "visuellement  / vérifier l'aspect et la face technique"
-   - raison_point_cle: "Éviter les défauts : Pas de traces, Point noir (si pièce blanche), Givrage, Manque, Cassé, Déformation."
+{control_type_instruction}
 
 C. SI L'ÉTAPE EST UN CONTRÔLE TAMPOGRAPHIE (intitulé contient "Tampographie" ou "tampographie") :
    - description_complete: "Contrôler visuellement le marquage tampographié pour vérifier la conformité."
