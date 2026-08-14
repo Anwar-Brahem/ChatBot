@@ -68,7 +68,7 @@ DONNÉES EN ENTRÉE :
 Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre ces structures dans 'description_complete' :
 
 1. "Prendre une pièce" :
-   "Prendre avec [la main droite / la main gauche / les deux mains] la pièce depuis [carton / tapis / bac / posage]."
+   "Prendre avec les deux mains]la pièce depuis [carton / tapis / bac / posage]."
 
 2. "Prise d'un composant" :
    "Prendre avec [la main droite / la main gauche / les deux mains] le composant noir depuis [carton / bac / alvéole]."
