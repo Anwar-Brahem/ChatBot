@@ -96,7 +96,7 @@ def fill_operation_row(ws, row: int, step_num: int, data: dict, image_path: str 
     step_cell.font = Font(name='Calibri', size=11)
 
     # 2. CP/CS (D:E)
-    cp_cs = data.get("cp_cs", "Non")
+    cp_cs = data.get("cp_cs", "")
     cp_cs_cell = ws.cell(row=row, column=COL_CP_CS_START, value=cp_cs)
     cp_cs_cell.alignment = Alignment(horizontal='center', vertical='center', wrap_text=True)
     cp_cs_cell.font = Font(name='Calibri', size=11)
