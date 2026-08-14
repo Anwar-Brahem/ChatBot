@@ -63,7 +63,7 @@ DONNÉES EN ENTRÉE :
    Si un nom d'objet spécifique est identifié dans les gestes observés (ex: "corps plastique", "boîtier", "connecteur"), utilise ce nom exact à la place du terme générique "pièce".
 
 ═══════════════════════════════════════════════════════════════════════
-2. PATRONS STRICTS POUR LES 20 ÉTAPES DE L'INTERFACE
+2. PATRONS STRICTS POUR LES ÉTAPES DE L'INTERFACE
 ═══════════════════════════════════════════════════════════════════════
 Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre ces structures dans 'description_complete' :
 
@@ -82,56 +82,56 @@ Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre 
 5. "Mise en place sur posage" :
    "Poser avec [la main droite / les deux mains] la pièce sur le posage de travail."
 
-6. "Assemblage des corps avec outil" :
-   "Assembler avec [nom de l'outil] les corps plastiques sur le support de montage."
-
-7. "Assembler composant sur pièce" :
+6. "Assembler composant sur pièce" :
    "Assembler avec [la main droite / les deux mains] le composant noir sur la pièce principale."
 
-8. "Actionnement du levier" :
-   "Actionner avec [la main droite / les deux mains] le levier de verrouillage jusqu'à la butée."
+7. "Assemblage des corps avec outil" :
+   "Assembler avec [nom de l'outil] les corps plastiques sur le support de montage."
 
-9. "Translation du posage" :
+8. "Translation du posage" :
    "Translater avec [la main droite / les deux mains] le posage coulissant vers la zone de travail."
 
+9. "Actionnement du levier" :
+   "Actionner avec [la main droite / les deux mains] le levier de verrouillage jusqu'à la butée."
+
 10. "Contrôle traçabilité" :
-    "Contrôler visuellement la pièce pour vérifier la traçabilité."
+   "Contrôler visuellement la pièce pour vérifier la traçabilité."
 
 11. "Contrôle visuel" :
-    "Contrôler visuellement la pièce pour vérifier l'aspect et la face technique."
+   "Contrôler visuellement la pièce pour vérifier l'aspect et la face technique."
 
 12. "Contrôle Tampographie" :
-    "Contrôler visuellement le marquage tampographié pour vérifier la conformité."
+   "Contrôler visuellement le marquage tampographié pour vérifier la conformité."
 
 13. "Contrôle assemblage" :
-    "Contrôler visuellement l'assemblage du composant pour vérifier le bon encliquetage."
+   "Contrôler visuellement l'assemblage du composant pour vérifier le bon encliquetage."
 
 14. "Contrôle dimensionnel" :
-    "Contrôler [avec un pige de contrôle / avec un gabarit / visuellement] les cotes critiques de la pièce."
+   "Contrôler [avec un pige de contrôle / avec un gabarit / visuellement] les cotes critiques de la pièce."
 
 15. "Retouche de pièce" :
-    "Retoucher avec [l'outil de finition / le bistouri / le cutter] la pièce pour ébavurer les contours."
+   "Retoucher avec [l'outil de finition / le bistouri / le cutter] la pièce pour ébavurer les contours."
 
 16. "Lancement cycle (Bimanuelle)" :
-    "Presser avec les deux mains les commandes bimanuelles pour lancer le cycle machine."
+   "Presser avec les deux mains les commandes bimanuelles pour lancer le cycle machine."
 
 17. "Lancement cycle (Pédale)" :
-    "Actionner avec le pied la pédale de commande pour démarrer la machine."
+   "Actionner avec le pied la pédale de commande pour démarrer la machine."
 
 18. "Recul de sécurité" :
-    "Maintenir avec les deux mains hors de la zone de danger pendant le fonctionnement machine."
+   "Maintenir avec les deux mains hors de la zone de danger pendant le fonctionnement machine."
 
 19. "Évacuation pièce" :
-    "Évacuer avec [la main droite / les deux mains] la pièce terminée vers le canal de sortie."
+   "Évacuer avec [la main droite / les deux mains] la pièce terminée vers le canal de sortie."
 
 20. "Conditionnement" :
-    "Conditionner avec [la main droite / les deux mains] la pièce selon la gamme de conditionnement."
+   "Conditionner avec [la main droite / les deux mains] la pièce selon la gamme de conditionnement."
 
 21. "Nettoyage par air" :
-    "Faire passer la pièce avec [la main droite / les deux mains] sur le souffle d'air."
+   "Faire passer la pièce avec [la main droite / les deux mains] sur le souffle d'air."
 
 22. "Nettoyage zone tampographie" :
-    "Nettoyer avec [la main droite / les deux mains] la zone de tampographie."
+   "Nettoyer avec [la main droite / les deux mains] la zone de tampographie."
 
 ═══════════════════════════════════════════════════════════════════════
 3. RÈGLE D'OR DE GÉNÉRATION DU TITRE ('etape_principale_resume')
