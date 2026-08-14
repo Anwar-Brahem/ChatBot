@@ -215,7 +215,7 @@ Réponds EXCLUSIVEMENT sous la forme d'un objet JSON valide et strict (sans bali
   "points_cles": "Synthèse concise du COMMENT (ex: 'outil de finition / éliminer les bavures')",
   "raison_point_cle": "Justification du POURQUOI (ex: 'Garantir la conformité géométrique')",
   "temps_cycle_estime": "{duree_cumulee}s",
-  "cp_cs": "Non",
+  "cp_cs": "",
   "outils_fixations": "Rien ou nom de l'outil",
   "action_principale": "Verbe infinitif principal (ex: 'Prendre', 'Retoucher', 'Contrôler', 'Assembler')",
   "mouvement_observe": "Résumé technique du mouvement observé à l'écran",
