@@ -46,6 +46,7 @@ DEFAULT_COMMON_ACTIONS = [
     # Evacuation & Conditionnement
     "Évacuation pièce",
     "Conditionnement",
+    "Nettoyage par air",
 ]
 
 
