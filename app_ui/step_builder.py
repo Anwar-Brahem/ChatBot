@@ -47,6 +47,7 @@ DEFAULT_COMMON_ACTIONS = [
     "Évacuation pièce",
     "Conditionnement",
     "Nettoyage par air",
+    "Nettoyage zone tampographie",
 ]
 
 
