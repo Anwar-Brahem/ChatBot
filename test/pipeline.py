@@ -307,7 +307,8 @@ def ensure_clean_dict(data, fallback_step_label="Étape"):
 
 def run_pipeline(video_file_path: str, custom_project_name: str = None,
                  workflow_type="auto", custom_steps=None, expected_step_count=None,
-                 progress_callback=None, cancellation_event: threading.Event = None):
+                 progress_callback=None, cancellation_event: threading.Event = None,
+                 control_type=None, **kwargs):
     if not custom_project_name:
         custom_project_name = Path(video_file_path).stem
 
