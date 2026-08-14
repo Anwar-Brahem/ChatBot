@@ -127,7 +127,7 @@ Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre 
 20. "Conditionnement" :
     "Conditionner avec [la main droite / les deux mains] la pièce selon la gamme de conditionnement."
 
-20. "Nettoyage par air" :
+21. "Nettoyage par air" :
     "Faire passer la pièce avec [la main droite / les deux mains] sur le soufle d'aire."
 
 ═══════════════════════════════════════════════════════════════════════
