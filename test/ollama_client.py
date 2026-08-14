@@ -246,7 +246,7 @@ def analyze_sequence_with_ollama(images_base64, previous_action, used_verbs=None
             "points_cles": "",
             "raison_point_cle": "Perte du temps",
             "temps_cycle_estime": "3s",
-            "cp_cs": "Non",
+            "cp_cs": "",
             "etape_principale_resume": "Erreur"
         }
     except Exception as e:
@@ -265,6 +265,6 @@ def analyze_sequence_with_ollama(images_base64, previous_action, used_verbs=None
             "points_cles": "",
             "raison_point_cle": "Perte du temps",
             "temps_cycle_estime": "3s",
-            "cp_cs": "Non",
+            "cp_cs": "",
             "etape_principale_resume": "Erreur format"
         }
