@@ -10,7 +10,8 @@ from data_collector import save_training_sample
 
 def analyze_video(video_path, progress_callback=None, workflow_type="auto",
                   custom_steps=None, expected_step_count=None, frame_interval=None,
-                  window_size=None, resize_factor=None, cancellation_event=None):
+                  window_size=None, resize_factor=None, cancellation_event=None,
+                  control_type=None, **kwargs):
     
     if cancellation_event and cancellation_event.is_set():
         return "Analyse interrompue par l'utilisateur.", None
@@ -31,7 +32,8 @@ def analyze_video(video_path, progress_callback=None, workflow_type="auto",
         workflow_type=workflow_type,
         custom_steps=custom_steps,
         expected_step_count=expected_step_count,
-        cancellation_event=cancellation_event
+        cancellation_event=cancellation_event,
+        control_type=control_type
     )
 
     if cancellation_event and cancellation_event.is_set():
