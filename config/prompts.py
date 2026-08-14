@@ -128,7 +128,10 @@ Selon la valeur exacte de 'etape_principale_resume', tu DOIS STRICTEMENT suivre 
     "Conditionner avec [la main droite / les deux mains] la pièce selon la gamme de conditionnement."
 
 21. "Nettoyage par air" :
-    "Faire passer la pièce avec [la main droite / les deux mains] sur le soufle d'aire."
+    "Faire passer la pièce avec [la main droite / les deux mains] sur le souffle d'air."
+
+22. "Nettoyage zone tampographie" :
+    "Nettoyer avec [la main droite / les deux mains] la zone de tampographie."
 
 ═══════════════════════════════════════════════════════════════════════
 3. RÈGLE D'OR DE GÉNÉRATION DU TITRE ('etape_principale_resume')
